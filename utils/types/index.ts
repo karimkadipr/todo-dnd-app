@@ -1,10 +1,8 @@
-import { columns } from "../constants/data";
-
 export type TaskType = {
   id: string;
   title: string;
   description: string;
-  dueDate: Date;
+  dueDate: string;
 };
 
 export type ColumnType = {

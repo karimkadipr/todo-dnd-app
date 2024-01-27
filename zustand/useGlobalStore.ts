@@ -10,6 +10,7 @@ interface GlobalState {
   setColumn: (result: DropResult) => void;
   addTask: (columnId: ColumnId, task: TaskType) => void;
   showHideList: (columnId: ColumnId) => void;
+  sortTasks: (columnId: ColumnId, order: "asc" | "desc") => void;
 }
 
 const ASYNC_STORAGE_SAVED: string[] = ["columns", "enabledLists"];
@@ -34,7 +35,7 @@ export const useGlobalStore = create<GlobalState>()(
           };
         }),
 
-      setColumn: (result) => {
+      setColumn: (result) =>
         set((prev) => {
           if (!result.destination) {
             return prev;
@@ -58,14 +59,34 @@ export const useGlobalStore = create<GlobalState>()(
               [destinationId]: destinationTodos,
             },
           };
-        });
-      },
+        }),
 
-      addTask: (columnId, task) => {
+      addTask: (columnId, task) =>
         set((prev) => ({
           columns: {
             ...prev.columns,
             [columnId]: [...prev.columns[columnId], task],
+          },
+        })),
+
+      sortTasks: (columnId, order) => {
+        const direction = order === "desc" ? 1 : -1;
+        set((prev) => ({
+          columns: {
+            ...prev.columns,
+            [columnId]: prev.columns[columnId].sort((a, b) => {
+              if (!a?.dueDate || !b?.dueDate) {
+                return 0;
+              }
+
+              if (b.dueDate === a.dueDate) {
+                return 0;
+              }
+              if (new Date(b.dueDate) < new Date(a.dueDate)) {
+                return direction;
+              }
+              return -direction;
+            }),
           },
         }));
       },
