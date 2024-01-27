@@ -1,4 +1,4 @@
-import { initialData } from "@/utils/constants/data";
+import { columns, initialData } from "@/utils/constants/data";
 import { ColumnId, Data, TaskType } from "@/utils/types";
 import { DropResult } from "react-beautiful-dnd";
 import { create } from "zustand";
@@ -6,16 +6,34 @@ import { persist } from "zustand/middleware";
 
 interface GlobalState {
   columns: Data;
+  enabledLists: ColumnId[];
   setColumn: (result: DropResult) => void;
   addTask: (columnId: ColumnId, task: TaskType) => void;
+  showHideList: (columnId: ColumnId) => void;
 }
 
-const ASYNC_STORAGE_SAVED: string[] = ["columns"];
+const ASYNC_STORAGE_SAVED: string[] = ["columns", "enabledLists"];
 
 export const useGlobalStore = create<GlobalState>()(
   persist(
     (set) => ({
       columns: initialData,
+      enabledLists: columns,
+
+      showHideList: (columnId) =>
+        set(({ enabledLists }) => {
+          if (enabledLists.includes(columnId)) {
+            return {
+              enabledLists: enabledLists.filter((item) => item !== columnId),
+            };
+          }
+          return {
+            enabledLists: [...enabledLists, columnId].sort(
+              (a, b) => columns.indexOf(a) - columns.indexOf(b)
+            ),
+          };
+        }),
+
       setColumn: (result) => {
         set((prev) => {
           if (!result.destination) {

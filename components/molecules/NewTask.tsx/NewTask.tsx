@@ -6,6 +6,12 @@ import { TaskType } from "@/utils/types";
 import { useGlobalStore } from "@/zustand/useGlobalStore";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
+const SELECT_STATUS_OPTIONS = [
+  { label: "Todo", value: "todo" },
+  { label: "In progress", value: "inprogress" },
+  { label: "Done", value: "done" },
+];
+
 const NewTask = () => {
   const [isAddEnabled, setIsAddEnabled] = useState(false);
 
@@ -60,6 +66,7 @@ const NewTask = () => {
         id="status"
         label="Status"
         register={register}
+        options={SELECT_STATUS_OPTIONS}
         error={errors.status?.message}
       />
       <Input

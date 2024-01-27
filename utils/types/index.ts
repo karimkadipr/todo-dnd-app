@@ -17,4 +17,4 @@ export type Data = {
   [key in ColumnId]: TaskType[];
 };
 
-export type ColumnId = (typeof columns)[number];
+export type ColumnId = "todo" | "inprogress" | "done";

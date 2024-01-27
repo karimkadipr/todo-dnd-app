@@ -3,7 +3,7 @@ import { ColumnId } from "@/utils/types";
 import { useGlobalStore } from "@/zustand/useGlobalStore";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Task from "../TaskCard/TaskCard";
-import { labels } from "@/utils/constants/data";
+import { columnLabels } from "@/utils/constants/data";
 
 interface ColumnProps {
   columnId: ColumnId;
@@ -23,7 +23,7 @@ const Column = ({ columnId }: ColumnProps) => {
           }`}
         >
           <h1 className="p-4 pb-8 text-xs text-[#5E6C84]">
-            {labels[columnId]} {columns[columnId].length}
+            {columnLabels[columnId]} {columns[columnId].length}
           </h1>
           {columns[columnId].map((item, index) => (
             <Draggable key={item.id} draggableId={item.id} index={index}>

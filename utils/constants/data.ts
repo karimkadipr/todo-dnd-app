@@ -1,6 +1,10 @@
 import { Data } from "../types";
 
-export const columns = ["todo", "inprogress", "done"] as const;
+export const columns: ("todo" | "inprogress" | "done")[] = [
+  "todo",
+  "inprogress",
+  "done",
+];
 
 export const initialData: Data = {
   todo: [],
@@ -8,7 +12,7 @@ export const initialData: Data = {
   done: [],
 };
 
-export const labels = {
+export const columnLabels = {
   todo: "TO DO",
   inprogress: "IN PROGRESS",
   done: "DONE",
