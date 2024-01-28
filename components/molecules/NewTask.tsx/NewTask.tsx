@@ -36,7 +36,7 @@ const NewTask = () => {
     reset();
     setIsAddEnabled(false);
   };
-  console.log(errors);
+
   if (!isAddEnabled) {
     return (
       <div className="flex justify-end">

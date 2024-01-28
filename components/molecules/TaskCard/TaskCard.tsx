@@ -21,6 +21,7 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
 
 const Task = ({ provided, isDragging, task, columnId }: TaskProps) => {
   const icon = columnIcons[columnId];
+
   return (
     <div
       className="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"

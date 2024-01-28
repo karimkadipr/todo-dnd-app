@@ -1,6 +1,6 @@
+import React from "react";
 import Filter from "@/components/atoms/Filter/Filter";
 import { columns } from "@/utils/constants/data";
-import React from "react";
 
 const Filters = () => {
   return (
